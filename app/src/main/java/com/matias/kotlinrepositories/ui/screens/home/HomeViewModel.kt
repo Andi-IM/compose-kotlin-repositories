@@ -6,9 +6,7 @@ import androidx.paging.cachedIn
 import com.matias.domain.usecases.GetPagedKotlinReposUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.FlowPreview
 
-@OptIn(FlowPreview::class)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     getReposUseCase: GetPagedKotlinReposUseCase,

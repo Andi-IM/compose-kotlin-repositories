@@ -6,6 +6,5 @@ import javax.inject.Inject
 class SearchReposUseCase @Inject constructor(
     private val repo: GithubRepository
 ) {
-
     operator fun invoke(query: String) = repo.searchKotlinRepos(query)
 }

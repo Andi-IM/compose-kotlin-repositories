@@ -19,8 +19,8 @@ class DetailsScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getRepoUseCase: GetRepoUseCase,
 ) : ViewModel() {
-    private val owner: String = savedStateHandle.get("owner")!!
-    private val name: String = savedStateHandle.get("name")!!
+    private val owner: String = savedStateHandle["owner"]!!
+    private val name: String = savedStateHandle["name"]!!
 
     private val _state = MutableStateFlow(DetailsScreenState.Empty)
     val state = _state as StateFlow<DetailsScreenState>

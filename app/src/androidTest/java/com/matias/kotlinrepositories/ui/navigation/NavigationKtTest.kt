@@ -31,8 +31,8 @@ class NavigationKtTest : BaseMockWebserverTest() {
         clickFirstItem()
 
         assertEquals(Screen.Details.route, navController.currentDestination?.route)
-        assertEquals("square", navController.backQueue.last().arguments?.get("owner").toString())
-        assertEquals("okhttp", navController.backQueue.last().arguments?.get("name").toString())
+        assertEquals("square", navController.backQueue.last().arguments?.getString("owner"))
+        assertEquals("okhttp", navController.backQueue.last().arguments?.getString("name"))
     }
 
     @Test

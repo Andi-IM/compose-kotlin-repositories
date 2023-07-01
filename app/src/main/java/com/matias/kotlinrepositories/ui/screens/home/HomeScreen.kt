@@ -29,11 +29,11 @@ fun HomeScreen(
     onDetails: (Repo) -> Unit = {},
     onSearch: () -> Unit = {},
 ) {
-    HomeScreen(hiltViewModel(), onDetails, onSearch)
+    HomeScreenComponent(hiltViewModel(), onDetails, onSearch)
 }
 
 @Composable
-private fun HomeScreen(
+private fun HomeScreenComponent(
     viewModel: HomeViewModel,
     onRepoClick: (Repo) -> Unit = {},
     onSearch: () -> Unit = {}

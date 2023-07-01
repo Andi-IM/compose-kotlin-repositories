@@ -14,7 +14,7 @@ import com.matias.kotlinrepositories.ui.screens.search.SearchScreen
 
 @Composable
 fun Navigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+    NavHost(startDestination = Screen.Home.route, navController = navController) {
         addHome(navController)
         addSearch(navController)
         addDetails(navController)

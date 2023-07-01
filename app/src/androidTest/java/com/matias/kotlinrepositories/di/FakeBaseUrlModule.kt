@@ -13,7 +13,6 @@ import javax.inject.Named
     replaces = [BaseUrlModule::class]
 )
 object FakeBaseUrlModule {
-
     @Provides
     @Named("github-base-url")
     @Suppress("FunctionOnlyReturningConstant")

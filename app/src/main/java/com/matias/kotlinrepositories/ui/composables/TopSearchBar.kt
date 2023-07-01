@@ -2,7 +2,6 @@ package com.matias.kotlinrepositories.ui.composables
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +34,7 @@ import com.matias.kotlinrepositories.ui.theme.KotlinRepositoriesTheme
 
 const val TOP_SEARCH_FIELD_TEST_TAG = "top_search_field_test_tag"
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TopSearchBar(
     searchText: String = "",
@@ -103,7 +102,7 @@ fun TopSearchBar(
 )
 @Composable
 private fun Preview() {
-    KotlinRepositoriesTheme() {
+    KotlinRepositoriesTheme {
         TopSearchBar(
             placeholderText = "placeholder",
         )

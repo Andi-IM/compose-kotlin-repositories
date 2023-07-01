@@ -1,6 +1,7 @@
 package com.matias.kotlinrepositories.ui.screens.details
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Arrangement.SpaceEvenly
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -63,8 +64,11 @@ fun DetailsScreen(viewModel: DetailsScreenViewModel, navigateUp: () -> Unit) {
             title = { Text("") },
             navigationIcon = { NavigateUp(onClick = navigateUp) }
         )
-    }) {
-        DetailsScreen(state)
+    }) { paddingValues ->
+        Box(modifier = Modifier.padding(paddingValues)) {
+            DetailsScreen(state)
+        }
+
     }
 }
 
@@ -174,7 +178,7 @@ private fun DescriptionItem(title: Int, content: String) {
 )
 @Composable
 private fun Preview() {
-    KotlinRepositoriesTheme() {
+    KotlinRepositoriesTheme {
         Surface {
             DetailsScreen(
                 Repo(

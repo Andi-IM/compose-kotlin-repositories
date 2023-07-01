@@ -15,6 +15,7 @@ subprojects {
         google()
         mavenCentral()
     }
+
     apply from: "${project.rootDir}/buildscripts/spotless.gradle"
     apply from: "${project.rootDir}/buildscripts/detekt.gradle"
 

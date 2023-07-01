@@ -1,40 +1,45 @@
 plugins {
-	alias libs.plugins.android.library
-	alias libs.plugins.kotlin.android
-	alias libs.plugins.hilt.plugin
-	alias libs.plugins.kotlin.kapt
+    alias libs.plugins.android.library
+    alias libs.plugins.kotlin.android
+    alias libs.plugins.hilt.plugin
+    alias libs.plugins.kotlin.kapt
 }
 
 android {
-	compileSdk 31
+    compileSdk 33
 
-	defaultConfig {
-		minSdk 26
-		targetSdk 31
+    defaultConfig {
+        minSdk 26
+        targetSdk 33
 
-		consumerProguardFiles "consumer-rules.pro"
-	}
+        consumerProguardFiles "consumer-rules.pro"
+    }
 
-	buildTypes {
-		release {
-			minifyEnabled false
-			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-		}
-	}
-	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_11
-		targetCompatibility JavaVersion.VERSION_11
-	}
-	kotlinOptions {
-		jvmTarget = '1.11'
-	}
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    namespace 'com.matias.domain'
 }
 
 dependencies {
-	api (project(":core"))
-	implementation libs.kotlin.coroutines.android
-	implementation libs.android.hilt
-	kapt libs.android.hilt.compiler
+    api(project(":core"))
+    implementation libs.kotlin.coroutines.android
+    implementation libs.android.hilt
+    kapt libs.android.hilt.compiler
 
-	api libs.paging.common
+    api libs.paging.common
+}
+
+kapt {
+    correctErrorTypes true
 }

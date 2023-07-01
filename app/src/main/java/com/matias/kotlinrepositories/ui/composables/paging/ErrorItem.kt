@@ -50,8 +50,8 @@ fun ErrorItem(
 )
 @Composable
 private fun Preview() {
-    KotlinRepositoriesTheme() {
-        Surface() {
+    KotlinRepositoriesTheme {
+        Surface {
             ErrorItem()
         }
     }
