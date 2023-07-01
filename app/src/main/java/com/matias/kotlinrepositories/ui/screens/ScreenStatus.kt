@@ -1,7 +1,10 @@
 package com.matias.kotlinrepositories.ui.screens
 
 enum class ScreenStatus {
-    IDLE, LOADING, NO_INTERNET, ERROR;
+    IDLE,
+    LOADING,
+    NO_INTERNET,
+    ERROR;
 
-    fun isLoading(): Boolean = this == LOADING
+    @Suppress("unused") fun isLoading(): Boolean = this == LOADING
 }

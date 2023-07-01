@@ -13,7 +13,9 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class GithubDataSource @Inject constructor(
+class GithubDataSource
+@Inject
+constructor(
     private val service: SearchServiceApi,
     private val repoDtoMapper: RepoDtoMapper,
     private val resultDtoMapper: RepoResultListDtoMapper,
@@ -25,7 +27,9 @@ class GithubDataSource @Inject constructor(
         query: String = "",
     ): ResultList<Repo> {
         return call {
-            val result = service.searchRepositories(query = getKotlinQuery(query), page = page, sortBy = "stars")
+            val result =
+                service.searchRepositories(
+                    query = getKotlinQuery(query), page = page, sortBy = "stars")
             val mappedResult = resultDtoMapper.mapToDomainModel(result)
             cache.saveRepos(mappedResult.items)
             mappedResult

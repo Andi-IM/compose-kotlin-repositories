@@ -2,13 +2,13 @@
 compose = "2023.06.01"
 compose-ext = "1.4.8"
 coroutines = "1.7.2"
-espresso = "3.4.0"
+espresso = "3.5.1"
 gradleplugin = "8.0.2"
 hilt = "2.46.1"
 kotlin = "1.8.22"
 lifecycle = "2.6.1"
 navigation = "2.5.3"
-okhttp = "4.9.3"
+okhttp = "5.0.0-alpha.11"
 retrofit = "2.9.0"
 room = "2.5.2"
 
@@ -60,12 +60,13 @@ networking = ["gson-gson", "okhttp-interceptor", "retrofit-gsonConverter", "retr
 room = ["room-ktx", "room-paging", "room-runtime"]
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "gradleplugin" }
-android-library = { id = "com.android.library", version.ref = "gradleplugin" }
+android-application = { id = "com.android.application", version = "8.0.2" }
+android-library = { id = "com.android.library", version = "8.0.2" }
 detekt = "io.gitlab.arturbosch.detekt:1.19.0"
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-spotless = "com.diffplug.spotless:6.4.2"
+ktlint = { id = "com.pinterest.ktlint", version = "0.50.0"}
+spotless = { id = "com.diffplug.spotless", version = "6.19.0"}
 toml-checker = "com.github.ben-manes.versions:0.42.0"
 toml-updater = "nl.littlerobots.version-catalog-update:0.3.1"

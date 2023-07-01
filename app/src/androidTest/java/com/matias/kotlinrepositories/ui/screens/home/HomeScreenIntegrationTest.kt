@@ -22,7 +22,8 @@ class HomeScreenIntegrationTest : BaseMockWebserverTest() {
         mockWebServer.shutdown()
 
         setHomeScreen()
-        composeTestRule.onNode(hasText(composeTestRule.activity.getString(R.string.no_internet)), true)
+        composeTestRule
+            .onNode(hasText(composeTestRule.activity.getString(R.string.no_internet)), true)
             .assertIsDisplayed()
     }
 
@@ -31,7 +32,9 @@ class HomeScreenIntegrationTest : BaseMockWebserverTest() {
         disableDispatcher()
         setHomeScreen()
 
-        composeTestRule.onNode(hasText(composeTestRule.activity.getString(R.string.unknown_error_try_again)), true)
+        composeTestRule
+            .onNode(
+                hasText(composeTestRule.activity.getString(R.string.unknown_error_try_again)), true)
             .assertIsDisplayed()
     }
 
@@ -54,7 +57,9 @@ class HomeScreenIntegrationTest : BaseMockWebserverTest() {
 
         composeTestRule.onNode(hasScrollAction()).onChildren()
 
-        composeTestRule.onNode(hasContentDescription(getString(R.string.scroll_to_top))).assertIsDisplayed()
+        composeTestRule
+            .onNode(hasContentDescription(getString(R.string.scroll_to_top)))
+            .assertIsDisplayed()
     }
 
     @Test
@@ -65,7 +70,9 @@ class HomeScreenIntegrationTest : BaseMockWebserverTest() {
 
         scrollable.performScrollToIndex(10)
 
-        composeTestRule.onNode(hasContentDescription(getString(R.string.scroll_to_top))).performClick()
+        composeTestRule
+            .onNode(hasContentDescription(getString(R.string.scroll_to_top)))
+            .performClick()
 
         scrollable.onChildAt(0).assert(hasText("square/okhttp"))
     }
@@ -79,14 +86,11 @@ class HomeScreenIntegrationTest : BaseMockWebserverTest() {
         scrollable.performScrollToIndex(29)
         scrollable.performScrollToIndex(30)
 
-        scrollable.onChildAt(0)
-            .assert(hasText("YiiGuxing/TranslationPlugin"))
+        scrollable.onChildAt(0).assert(hasText("YiiGuxing/TranslationPlugin"))
     }
 
     private fun setHomeScreen() {
-        composeTestRule.setContent {
-            HomeScreen()
-        }
+        composeTestRule.setContent { HomeScreen() }
         composeTestRule.waitForIdle()
     }
 }

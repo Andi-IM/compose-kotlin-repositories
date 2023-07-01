@@ -31,8 +31,7 @@ fun SmallIconWithAmount(
         Icon(
             painter = painter,
             contentDescription = contentDescription,
-            modifier = Modifier.size(16.dp)
-        )
+            modifier = Modifier.size(16.dp))
         Spacer(modifier = Modifier.size(8.dp))
         Text(text = text)
     }
@@ -53,8 +52,7 @@ private fun Preview() {
             SmallIconWithAmount(
                 text = 45001.toString(),
                 painter = rememberVectorPainter(image = Icons.Default.Star),
-                contentDescription = stringResource(id = R.string.stars)
-            )
+                contentDescription = stringResource(id = R.string.stars))
         }
     }
 }

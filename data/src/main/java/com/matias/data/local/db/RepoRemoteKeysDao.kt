@@ -12,9 +12,7 @@ interface RepoRemoteKeysDao {
     @Query("SELECT * FROM ${RepoDatabase.REPO_REMOTE_KEYS_TABLE_NAME} WHERE id =:id")
     fun get(id: Int): RepoRemoteKeysDbo
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addAll(remoteKeys: List<RepoRemoteKeysDbo>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) fun addAll(remoteKeys: List<RepoRemoteKeysDbo>)
 
-    @Query("DELETE FROM ${RepoDatabase.REPO_REMOTE_KEYS_TABLE_NAME}")
-    fun deleteAll()
+    @Query("DELETE FROM ${RepoDatabase.REPO_REMOTE_KEYS_TABLE_NAME}") fun deleteAll()
 }

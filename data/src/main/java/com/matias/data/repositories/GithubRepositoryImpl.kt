@@ -21,7 +21,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
-class GithubRepositoryImpl @Inject constructor(
+class GithubRepositoryImpl
+@Inject
+constructor(
     private val githubDatasource: GithubDataSource,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val db: RepoDatabase,
@@ -31,37 +33,35 @@ class GithubRepositoryImpl @Inject constructor(
     override fun getKotlinRepos(): Flow<PagingData<Repo>> {
         val pagingSourceFactory = { db.repoDao().getAll() }
         return Pager(
-            config = getPagingConfig(),
-            remoteMediator = ReposRemoteMediator(
-                dataSource = githubDatasource,
-                database = db,
-                mapper = dboMapper,
-            ),
-            pagingSourceFactory = pagingSourceFactory
-        ).flow.map { page ->
-            EspressoIdlingResource.wrap { page.map { dboMapper.mapToDomainModel(it) } }
-        }
+                config = getPagingConfig(),
+                remoteMediator =
+                    ReposRemoteMediator(
+                        dataSource = githubDatasource,
+                        database = db,
+                        mapper = dboMapper,
+                    ),
+                pagingSourceFactory = pagingSourceFactory)
+            .flow
+            .map { page ->
+                EspressoIdlingResource.wrap { page.map { dboMapper.mapToDomainModel(it) } }
+            }
     }
 
     override fun searchKotlinRepos(query: String): Flow<PagingData<Repo>> {
         return Pager(
-            config = getPagingConfig(),
-            pagingSourceFactory = {
-                SearchPagingSource(dataSource = githubDatasource, query = query)
-            }
-        ).flow
+                config = getPagingConfig(),
+                pagingSourceFactory = {
+                    SearchPagingSource(dataSource = githubDatasource, query = query)
+                })
+            .flow
     }
 
-    private fun getPagingConfig() = PagingConfig(
-        pageSize = Constants.ELEMENTS_PER_PAGE,
-        prefetchDistance = Constants.ELEMENTS_PER_PAGE / 2,
-        initialLoadSize = Constants.ELEMENTS_PER_PAGE
-    )
+    private fun getPagingConfig() =
+        PagingConfig(
+            pageSize = Constants.ELEMENTS_PER_PAGE,
+            prefetchDistance = Constants.ELEMENTS_PER_PAGE / 2,
+            initialLoadSize = Constants.ELEMENTS_PER_PAGE)
 
     override suspend fun getKotlinRepo(owner: String, name: String): Result<Repo, Exception> =
-        withContext(dispatcher) {
-            Result.of {
-                githubDatasource.getRepository(owner, name)
-            }
-        }
+        withContext(dispatcher) { Result.of { githubDatasource.getRepository(owner, name) } }
 }

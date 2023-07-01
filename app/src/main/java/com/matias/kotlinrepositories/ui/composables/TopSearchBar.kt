@@ -50,35 +50,33 @@ fun TopSearchBar(
         navigationIcon = { NavigateUp(onNavigateUp) },
         actions = {
             OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 2.dp)
-                    .testTag(TOP_SEARCH_FIELD_TEST_TAG),
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .padding(vertical = 2.dp)
+                        .testTag(TOP_SEARCH_FIELD_TEST_TAG),
                 value = searchText,
                 onValueChange = onSearchTextChanged,
                 placeholder = {
                     Text(
                         text = placeholderText,
-                        color = MaterialTheme.colors.onPrimary.copy(alpha = 0.8f)
-                    )
+                        color = MaterialTheme.colors.onPrimary.copy(alpha = 0.8f))
                 },
-                colors = TextFieldDefaults.textFieldColors(
-                    textColor = MaterialTheme.colors.onPrimary,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    backgroundColor = Color.Transparent,
-                    cursorColor = LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
-                ),
+                colors =
+                    TextFieldDefaults.textFieldColors(
+                        textColor = MaterialTheme.colors.onPrimary,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        backgroundColor = Color.Transparent,
+                        cursorColor =
+                            LocalContentColor.current.copy(alpha = LocalContentAlpha.current)),
                 trailingIcon = {
                     AnimatedVisibility(
-                        visible = searchText.isNotEmpty(),
-                        enter = fadeIn(),
-                        exit = fadeOut()
-                    ) {
+                        visible = searchText.isNotEmpty(), enter = fadeIn(), exit = fadeOut()) {
                         IconButton(onClick = onClearClick) {
                             Icon(
                                 imageVector = Icons.Filled.Close,
-                                contentDescription = stringResource(id = R.string.search_clear_content_description),
+                                contentDescription =
+                                    stringResource(id = R.string.search_clear_content_description),
                                 tint = MaterialTheme.colors.onPrimary,
                             )
                         }
@@ -88,8 +86,7 @@ fun TopSearchBar(
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions { keyboardController?.hide() },
             )
-        }
-    )
+        })
 }
 
 @Preview(

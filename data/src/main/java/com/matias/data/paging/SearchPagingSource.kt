@@ -7,10 +7,8 @@ import com.matias.data.remote.RemoteConstants
 import com.matias.data.remote.datasource.GithubDataSource
 import com.matias.domain.model.Repo
 
-class SearchPagingSource(
-    private val dataSource: GithubDataSource,
-    private val query: String
-) : PagingSource<Int, Repo>() {
+class SearchPagingSource(private val dataSource: GithubDataSource, private val query: String) :
+    PagingSource<Int, Repo>() {
 
     @Suppress("TooGenericExceptionCaught")
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Repo> {
@@ -28,9 +26,12 @@ class SearchPagingSource(
                 if (response.items.isNotEmpty()) {
                     LoadResult.Page(
                         data = response.items,
-                        prevKey = if (currentPage == RemoteConstants.FIRST_PAGE) null else currentPage - 1,
-                        nextKey = if (dataSource.isLastPage(currentPage, response.totalCount)) null else currentPage + 1
-                    )
+                        prevKey =
+                            if (currentPage == RemoteConstants.FIRST_PAGE) null
+                            else currentPage - 1,
+                        nextKey =
+                            if (dataSource.isLastPage(currentPage, response.totalCount)) null
+                            else currentPage + 1)
                 } else {
                     emptyPage()
                 }
@@ -41,11 +42,7 @@ class SearchPagingSource(
     }
 
     private fun emptyPage(): LoadResult.Page<Int, Repo> =
-        LoadResult.Page(
-            data = emptyList(),
-            prevKey = null,
-            nextKey = null
-        )
+        LoadResult.Page(data = emptyList(), prevKey = null, nextKey = null)
 
     override fun getRefreshKey(state: PagingState<Int, Repo>): Int? {
         return state.anchorPosition

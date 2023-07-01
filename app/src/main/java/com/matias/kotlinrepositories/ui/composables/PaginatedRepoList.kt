@@ -47,15 +47,8 @@ fun PaginatedRepoList(
         LazyColumn(
             state = listState,
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp)
-        ) {
-            items(items) { item ->
-                item?.let {
-                    RepoListItem(repo = item, onClick = onRepoClick)
-                }
-            }
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)) {
+            items(items) { item -> item?.let { RepoListItem(repo = item, onClick = onRepoClick) } }
 
             items.apply {
                 when {
@@ -69,16 +62,14 @@ fun PaginatedRepoList(
                         item {
                             UndefinedErrorScreen(
                                 e = (loadState.refresh as LoadState.Error).error,
-                                onClickRetry = { retry() }
-                            )
+                                onClickRetry = { retry() })
                         }
                     }
                     loadState.append is LoadState.Error -> {
                         item {
                             ErrorItem(
                                 stringResource(id = R.string.unknown_error),
-                                onClickRetry = { retry() }
-                            )
+                                onClickRetry = { retry() })
                         }
                     }
                     loadState.source.refresh is LoadState.NotLoading &&
@@ -101,11 +92,10 @@ private fun ScrollToTopButton(listState: LazyListState) {
     Box(modifier = Modifier.fillMaxSize()) {
         FloatingActionButton(
             onClick = { coroutineScope.launch { listState.animateScrollToItem(0) } },
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        ) {
-            Icon(Icons.Default.ArrowUpward, contentDescription = stringResource(id = R.string.scroll_to_top))
+            modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)) {
+            Icon(
+                Icons.Default.ArrowUpward,
+                contentDescription = stringResource(id = R.string.scroll_to_top))
         }
     }
 }

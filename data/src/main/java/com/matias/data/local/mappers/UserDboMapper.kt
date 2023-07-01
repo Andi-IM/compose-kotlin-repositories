@@ -9,18 +9,11 @@ import javax.inject.Singleton
 @Singleton
 class UserDboMapper @Inject constructor() : DomainMapper<UserDbo, User> {
     override fun mapToDomainModel(model: UserDbo): User {
-        return User(
-            login = model.login,
-            id = model.userId,
-            avatarUrl = model.avatarUrl
-        )
+        return User(login = model.login, id = model.userId, avatarUrl = model.avatarUrl)
     }
 
     override fun mapFromDomainModel(domainModel: User): UserDbo {
         return UserDbo(
-            login = domainModel.login,
-            userId = domainModel.id,
-            avatarUrl = domainModel.avatarUrl
-        )
+            login = domainModel.login, userId = domainModel.id, avatarUrl = domainModel.avatarUrl)
     }
 }

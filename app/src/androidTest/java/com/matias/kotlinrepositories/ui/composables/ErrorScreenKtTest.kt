@@ -12,9 +12,7 @@ class ErrorScreenKtTest : BaseComposeTest() {
 
     @Test
     fun network_error_displays_correct_message() {
-        composeTestRule.setContent {
-            NetworkErrorScreen()
-        }
+        composeTestRule.setContent { NetworkErrorScreen() }
         composeTestRule
             .onNodeWithText(composeTestRule.activity.getString(R.string.no_internet))
             .assertIsDisplayed()
@@ -22,9 +20,7 @@ class ErrorScreenKtTest : BaseComposeTest() {
 
     @Test
     fun unknown_error_displays_correct_message() {
-        composeTestRule.setContent {
-            UnknownErrorScreen()
-        }
+        composeTestRule.setContent { UnknownErrorScreen() }
         composeTestRule
             .onNodeWithText(composeTestRule.activity.getString(R.string.unknown_error_try_again))
             .assertIsDisplayed()
@@ -32,9 +28,7 @@ class ErrorScreenKtTest : BaseComposeTest() {
 
     @Test
     fun empty_state_displays_correct_message() {
-        composeTestRule.setContent {
-            EmptyResultsSearchScreen()
-        }
+        composeTestRule.setContent { EmptyResultsSearchScreen() }
         composeTestRule
             .onNodeWithText(composeTestRule.activity.getString(R.string.empty_search))
             .assertIsDisplayed()

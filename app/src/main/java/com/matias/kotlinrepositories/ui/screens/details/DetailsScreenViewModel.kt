@@ -15,7 +15,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class DetailsScreenViewModel @Inject constructor(
+class DetailsScreenViewModel
+@Inject
+constructor(
     savedStateHandle: SavedStateHandle,
     private val getRepoUseCase: GetRepoUseCase,
 ) : ViewModel() {
@@ -30,14 +32,12 @@ class DetailsScreenViewModel @Inject constructor(
             _state.value = DetailsScreenState(screenStatus = ScreenStatus.IDLE)
             getRepoUseCase(owner, name)
                 .onSuccess { repo ->
-                    _state.value = DetailsScreenState(
-                        screenStatus = ScreenStatus.IDLE,
-                        repo = repo
-                    )
+                    _state.value = DetailsScreenState(screenStatus = ScreenStatus.IDLE, repo = repo)
                 }
                 .onFailure { failure ->
                     _state.value =
-                        DetailsScreenState(repo = null, screenStatus = failure.getScreenStatusDependingOnError())
+                        DetailsScreenState(
+                            repo = null, screenStatus = failure.getScreenStatusDependingOnError())
                 }
         }
     }

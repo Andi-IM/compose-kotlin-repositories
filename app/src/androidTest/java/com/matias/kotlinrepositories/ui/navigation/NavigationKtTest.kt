@@ -71,12 +71,14 @@ class NavigationKtTest : BaseMockWebserverTest() {
     }
 
     private fun clickSearch() {
-        composeTestRule.onNode(hasContentDescription(composeTestRule.activity.getString(R.string.search)))
+        composeTestRule
+            .onNode(hasContentDescription(composeTestRule.activity.getString(R.string.search)))
             .performClick()
     }
 
     private fun clickBack() {
-        composeTestRule.onNode(hasContentDescription(composeTestRule.activity.getString(R.string.back)))
+        composeTestRule
+            .onNode(hasContentDescription(composeTestRule.activity.getString(R.string.back)))
             .performClick()
     }
 

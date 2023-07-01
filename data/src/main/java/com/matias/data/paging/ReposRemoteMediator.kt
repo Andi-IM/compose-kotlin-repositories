@@ -36,28 +36,29 @@ class ReposRemoteMediator(
         state: PagingState<Int, RepoDbo>
     ): MediatorResult {
         return try {
-            val currentPage = when (loadType) {
-                LoadType.REFRESH -> {
-                    val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                    remoteKeys?.nextPage?.minus(1) ?: 1
+            val currentPage =
+                when (loadType) {
+                    LoadType.REFRESH -> {
+                        val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
+                        remoteKeys?.nextPage?.minus(1) ?: 1
+                    }
+                    LoadType.PREPEND -> {
+                        val remoteKeys = getRemoteKeyForFirstItem(state)
+                        val prevPage =
+                            remoteKeys?.prevPage
+                                ?: return MediatorResult.Success(
+                                    endOfPaginationReached = remoteKeys != null)
+                        prevPage
+                    }
+                    LoadType.APPEND -> {
+                        val remoteKeys = getRemoteKeyForLastItem(state)
+                        val nextPage =
+                            remoteKeys?.nextPage
+                                ?: return MediatorResult.Success(
+                                    endOfPaginationReached = remoteKeys != null)
+                        nextPage
+                    }
                 }
-                LoadType.PREPEND -> {
-                    val remoteKeys = getRemoteKeyForFirstItem(state)
-                    val prevPage = remoteKeys?.prevPage
-                        ?: return MediatorResult.Success(
-                            endOfPaginationReached = remoteKeys != null
-                        )
-                    prevPage
-                }
-                LoadType.APPEND -> {
-                    val remoteKeys = getRemoteKeyForLastItem(state)
-                    val nextPage = remoteKeys?.nextPage
-                        ?: return MediatorResult.Success(
-                            endOfPaginationReached = remoteKeys != null
-                        )
-                    nextPage
-                }
-            }
 
             val response = dataSource.searchRepositories(page = currentPage)
             val endOfPaginationReached = dataSource.isLastPage(currentPage, response.totalCount)
@@ -70,13 +71,10 @@ class ReposRemoteMediator(
                     repoDao.deleteAll()
                     repoRemoteKeysDao.deleteAll()
                 }
-                val keys = response.items.map { item ->
-                    RepoRemoteKeysDbo(
-                        id = item.id,
-                        prevPage = prevPage,
-                        nextPage = nextPage
-                    )
-                }
+                val keys =
+                    response.items.map { item ->
+                        RepoRemoteKeysDbo(id = item.id, prevPage = prevPage, nextPage = nextPage)
+                    }
                 repoRemoteKeysDao.addAll(remoteKeys = keys)
                 repoDao.add(items = response.items.map { mapper.mapFromDomainModel(it) })
             }
@@ -86,31 +84,23 @@ class ReposRemoteMediator(
         }
     }
 
-    private suspend fun getRemoteKeyClosestToCurrentPosition(
+    private fun getRemoteKeyClosestToCurrentPosition(
         state: PagingState<Int, RepoDbo>
     ): RepoRemoteKeysDbo? {
         return state.anchorPosition?.let { position ->
-            state.closestItemToPosition(position)?.id?.let { id ->
-                repoRemoteKeysDao.get(id = id)
-            }
+            state.closestItemToPosition(position)?.id?.let { id -> repoRemoteKeysDao.get(id = id) }
         }
     }
 
-    private suspend fun getRemoteKeyForFirstItem(
-        state: PagingState<Int, RepoDbo>
-    ): RepoRemoteKeysDbo? {
-        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
-            ?.let { item ->
-                repoRemoteKeysDao.get(id = item.id)
-            }
+    private fun getRemoteKeyForFirstItem(state: PagingState<Int, RepoDbo>): RepoRemoteKeysDbo? {
+        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { item ->
+            repoRemoteKeysDao.get(id = item.id)
+        }
     }
 
-    private suspend fun getRemoteKeyForLastItem(
-        state: PagingState<Int, RepoDbo>
-    ): RepoRemoteKeysDbo? {
-        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
-            ?.let { item ->
-                repoRemoteKeysDao.get(id = item.id)
-            }
+    private fun getRemoteKeyForLastItem(state: PagingState<Int, RepoDbo>): RepoRemoteKeysDbo? {
+        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { item ->
+            repoRemoteKeysDao.get(id = item.id)
+        }
     }
 }

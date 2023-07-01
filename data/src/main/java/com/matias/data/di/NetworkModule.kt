@@ -35,7 +35,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun okhttp(loggingInterceptor: HttpLoggingInterceptor, pagingInterceptor: PagingInterceptor): OkHttpClient {
+    fun okhttp(
+        loggingInterceptor: HttpLoggingInterceptor,
+        pagingInterceptor: PagingInterceptor
+    ): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder.addInterceptor(loggingInterceptor)
         builder.addInterceptor(pagingInterceptor)
@@ -44,15 +47,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun loggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-        level = if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor.Level.BODY
-        } else {
-            HttpLoggingInterceptor.Level.NONE
+    fun loggingInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply {
+            level =
+                if (BuildConfig.DEBUG) {
+                    HttpLoggingInterceptor.Level.BODY
+                } else {
+                    HttpLoggingInterceptor.Level.NONE
+                }
         }
-    }
 
-    @Provides
-    @Singleton
-    fun pagingInterceptor(): PagingInterceptor = PagingInterceptor()
+    @Provides @Singleton fun pagingInterceptor(): PagingInterceptor = PagingInterceptor()
 }

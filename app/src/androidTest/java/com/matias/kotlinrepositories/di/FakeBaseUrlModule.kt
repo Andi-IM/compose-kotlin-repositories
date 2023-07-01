@@ -7,11 +7,9 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import javax.inject.Named
 
+@Suppress("unused")
 @Module
-@TestInstallIn(
-    components = [SingletonComponent::class],
-    replaces = [BaseUrlModule::class]
-)
+@TestInstallIn(components = [SingletonComponent::class], replaces = [BaseUrlModule::class])
 object FakeBaseUrlModule {
     @Provides
     @Named("github-base-url")

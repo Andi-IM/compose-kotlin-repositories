@@ -19,11 +19,7 @@ class DetailsScreenKtTest : BaseComposeTest() {
     @Before
     override fun setUp() {
         super.setUp()
-        composeTestRule.setContent {
-            KotlinRepositoriesTheme {
-                DetailsScreen(repo = repo)
-            }
-        }
+        composeTestRule.setContent { KotlinRepositoriesTheme { DetailsScreen(repo = repo) } }
     }
 
     @Test
@@ -38,19 +34,25 @@ class DetailsScreenKtTest : BaseComposeTest() {
 
     @Test
     fun given_aRepository_When_Displayed_Then_homepageIsDisplayed() {
-        composeTestRule.onNode(hasText(composeTestRule.activity.getString(R.string.home_page))).assertIsDisplayed()
+        composeTestRule
+            .onNode(hasText(composeTestRule.activity.getString(R.string.home_page)))
+            .assertIsDisplayed()
         composeTestRule.onNode(hasText(repo.homepage)).assertIsDisplayed()
     }
 
     @Test
     fun given_aRepository_When_Displayed_Then_urlIsDisplayed() {
-        composeTestRule.onNode(hasText(composeTestRule.activity.getString(R.string.repository))).assertIsDisplayed()
+        composeTestRule
+            .onNode(hasText(composeTestRule.activity.getString(R.string.repository)))
+            .assertIsDisplayed()
         composeTestRule.onNode(hasText(repo.url)).assertIsDisplayed()
     }
 
     @Test
     fun given_aRepository_When_Displayed_Then_descriptionIsDisplayed() {
-        composeTestRule.onNode(hasText(composeTestRule.activity.getString(R.string.description))).assertIsDisplayed()
+        composeTestRule
+            .onNode(hasText(composeTestRule.activity.getString(R.string.description)))
+            .assertIsDisplayed()
         composeTestRule.onNode(hasText(repo.description)).assertIsDisplayed()
     }
 }

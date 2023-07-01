@@ -31,13 +31,14 @@ class SearchScreenIntegrationTest : BaseMockWebserverTest() {
         val lazyColumn = composeTestRule.onNode(hasScrollAction())
 
         lazyColumn.onChildAt(0).assert(hasText("kotest/kotest")).assertIsDisplayed()
-        lazyColumn.onChildAt(1).assert(hasText("googlecodelabs/android-testing")).assertIsDisplayed()
+        lazyColumn
+            .onChildAt(1)
+            .assert(hasText("googlecodelabs/android-testing"))
+            .assertIsDisplayed()
         lazyColumn.onChildAt(2).assert(hasText("KasperskyLab/Kaspresso")).assertIsDisplayed()
     }
 
     private fun setScreen() {
-        composeTestRule.setContent {
-            SearchScreen()
-        }
+        composeTestRule.setContent { SearchScreen() }
     }
 }

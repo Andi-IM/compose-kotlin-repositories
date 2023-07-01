@@ -36,29 +36,20 @@ import com.matias.kotlinrepositories.ui.theme.KotlinRepositoriesTheme
 @Composable
 fun RepoListItem(repo: Repo, onClick: (Repo) -> Unit = {}) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(96.dp)
-            .clickable(onClick = { onClick.invoke(repo) })
-    ) {
+        modifier =
+            Modifier.fillMaxWidth().height(96.dp).clickable(onClick = { onClick.invoke(repo) })) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(repo.owner.avatarUrl)
-                    .crossfade(true)
-                    .build(),
+                model =
+                    ImageRequest.Builder(LocalContext.current)
+                        .data(repo.owner.avatarUrl)
+                        .crossfade(true)
+                        .build(),
                 contentDescription = repo.owner.login,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .size(64.dp)
-                    .align(Alignment.CenterVertically)
-            )
+                modifier = Modifier.clip(CircleShape).size(64.dp).align(Alignment.CenterVertically))
             Spacer(modifier = Modifier.size(16.dp))
             RepoContent(repo)
         }
@@ -72,13 +63,11 @@ private fun RepoContent(repo: Repo) {
         SmallIconWithAmount(
             text = repo.stars.toString(),
             painter = rememberVectorPainter(image = Icons.Default.Star),
-            contentDescription = stringResource(id = R.string.stars)
-        )
+            contentDescription = stringResource(id = R.string.stars))
         SmallIconWithAmount(
             text = repo.forks.toString(),
             painter = painterResource(id = R.drawable.ic_fork),
-            contentDescription = stringResource(id = R.string.forks)
-        )
+            contentDescription = stringResource(id = R.string.forks))
     }
 }
 
@@ -94,15 +83,14 @@ private fun RepoContent(repo: Repo) {
 private fun Preview() {
     KotlinRepositoriesTheme {
         RepoListItem(
-            repo = Repo(
-                id = 1,
-                name = "okhttp",
-                fullName = "square/okhttp",
-                owner = User(
-                    login = "square",
-                    avatarUrl = "https://avatars.githubusercontent.com/u/82592?v=4"
-                )
-            )
-        )
+            repo =
+                Repo(
+                    id = 1,
+                    name = "okhttp",
+                    fullName = "square/okhttp",
+                    owner =
+                        User(
+                            login = "square",
+                            avatarUrl = "https://avatars.githubusercontent.com/u/82592?v=4")))
     }
 }

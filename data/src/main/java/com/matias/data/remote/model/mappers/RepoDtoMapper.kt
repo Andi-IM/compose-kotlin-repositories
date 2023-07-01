@@ -7,9 +7,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RepoDtoMapper @Inject constructor(
-    private val userDtoMapper: UserDtoMapper
-) : DomainMapper<RepoDto, Repo> {
+class RepoDtoMapper @Inject constructor(private val userDtoMapper: UserDtoMapper) :
+    DomainMapper<RepoDto, Repo> {
     override fun mapToDomainModel(model: RepoDto): Repo {
         return Repo(
             id = model.id,
@@ -21,8 +20,7 @@ class RepoDtoMapper @Inject constructor(
             homepage = model.homepage ?: "",
             stars = model.stargazersCount,
             language = model.language ?: "",
-            forks = model.forksCount
-        )
+            forks = model.forksCount)
     }
 
     override fun mapFromDomainModel(domainModel: Repo): RepoDto {
@@ -36,7 +34,6 @@ class RepoDtoMapper @Inject constructor(
             homepage = domainModel.homepage,
             stargazersCount = domainModel.stars,
             language = domainModel.language,
-            forksCount = domainModel.forks
-        )
+            forksCount = domainModel.forks)
     }
 }

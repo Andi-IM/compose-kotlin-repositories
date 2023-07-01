@@ -1,8 +1,8 @@
 package com.matias.kotlinrepositories.ui.screens.details
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Arrangement.SpaceEvenly
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -51,24 +51,17 @@ import com.matias.kotlinrepositories.ui.theme.KotlinRepositoriesTheme
 
 @Composable
 fun DetailsScreen(navigateUp: () -> Unit) {
-    Surface {
-        DetailsScreen(hiltViewModel(), navigateUp)
-    }
+    Surface { DetailsScreen(hiltViewModel(), navigateUp) }
 }
 
 @Composable
 fun DetailsScreen(viewModel: DetailsScreenViewModel, navigateUp: () -> Unit) {
     val state by viewModel.state.collectAsState()
-    Scaffold(topBar = {
-        TopAppBar(
-            title = { Text("") },
-            navigationIcon = { NavigateUp(onClick = navigateUp) }
-        )
-    }) { paddingValues ->
-        Box(modifier = Modifier.padding(paddingValues)) {
-            DetailsScreen(state)
-        }
-
+    Scaffold(
+        topBar = {
+            TopAppBar(title = { Text("") }, navigationIcon = { NavigateUp(onClick = navigateUp) })
+        }) { paddingValues ->
+        Box(modifier = Modifier.padding(paddingValues)) { DetailsScreen(state) }
     }
 }
 
@@ -86,10 +79,7 @@ fun DetailsScreen(state: DetailsScreenState) {
 fun DetailsScreen(repo: Repo?) {
     repo?.let {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
+            modifier = Modifier.fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             OwnerImage(repo)
@@ -98,8 +88,7 @@ fun DetailsScreen(repo: Repo?) {
             Text(
                 text = repo.fullName,
                 style = MaterialTheme.typography.h5,
-                textAlign = TextAlign.Center
-            )
+                textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.size(16.dp))
 
             StarsAndForks(repo)
@@ -115,10 +104,12 @@ fun DetailsScreen(repo: Repo?) {
             Text(
                 text = stringResource(id = R.string.description),
                 style = MaterialTheme.typography.subtitle1,
-                textDecoration = TextDecoration.Underline
-            )
+                textDecoration = TextDecoration.Underline)
             Spacer(modifier = Modifier.size(4.dp))
-            Text(text = repo.description, style = MaterialTheme.typography.body1, textAlign = TextAlign.Center)
+            Text(
+                text = repo.description,
+                style = MaterialTheme.typography.body1,
+                textAlign = TextAlign.Center)
         }
     }
 }
@@ -126,26 +117,24 @@ fun DetailsScreen(repo: Repo?) {
 @Composable
 private fun OwnerImage(repo: Repo) {
     AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(repo.owner.avatarUrl)
-            .crossfade(true)
-            .build(),
+        model =
+            ImageRequest.Builder(LocalContext.current)
+                .data(repo.owner.avatarUrl)
+                .crossfade(true)
+                .build(),
         contentDescription = repo.owner.login,
         contentScale = ContentScale.Crop,
-        modifier = Modifier
-            .clip(CircleShape)
-            .size(256.dp)
-    )
+        modifier = Modifier.clip(CircleShape).size(256.dp))
 }
 
 @Composable
 private fun StarsAndForks(repo: Repo) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = SpaceEvenly
-    ) {
-        SmallIconWithAmount(painter = rememberVectorPainter(image = Icons.Default.Star), text = repo.stars.toString())
-        SmallIconWithAmount(painter = painterResource(id = R.drawable.ic_fork), text = repo.forks.toString())
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = SpaceEvenly) {
+        SmallIconWithAmount(
+            painter = rememberVectorPainter(image = Icons.Default.Star),
+            text = repo.stars.toString())
+        SmallIconWithAmount(
+            painter = painterResource(id = R.drawable.ic_fork), text = repo.forks.toString())
     }
 }
 
@@ -156,15 +145,13 @@ private fun DescriptionItem(title: Int, content: String) {
             text = stringResource(id = title),
             style = MaterialTheme.typography.subtitle1,
             textAlign = TextAlign.Center,
-            textDecoration = TextDecoration.Underline
-        )
+            textDecoration = TextDecoration.Underline)
         Spacer(modifier = Modifier.size(4.dp))
         Text(
             text = content,
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
+            modifier = Modifier.fillMaxWidth())
     }
 }
 
@@ -185,21 +172,20 @@ private fun Preview() {
                     id = 1,
                     name = "kotlinReallyReallyReallyLargeName",
                     fullName = "jetbrains/kotlinReallyReallyReallyLargeName",
-                    owner = User(
-                        login = "jetbrains",
-                        avatarUrl = "https://avatars.githubusercontent.com/u/878437?v=4"
-                    ),
-                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
-                        "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud " +
-                        "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute " +
-                        "irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                        "pariatur.",
+                    owner =
+                        User(
+                            login = "jetbrains",
+                            avatarUrl = "https://avatars.githubusercontent.com/u/878437?v=4"),
+                    description =
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
+                            "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud " +
+                            "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute " +
+                            "irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+                            "pariatur.",
                     url = "https://github.com/JetBrains/kotlasdasdasdadasin",
                     homepage = "https://kotladasdasdasdasdasdasdasinlang.org",
                     stars = 40550,
-                    forks = 4998
-                )
-            )
+                    forks = 4998))
         }
     }
 }

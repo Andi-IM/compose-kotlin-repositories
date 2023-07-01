@@ -23,15 +23,8 @@ import com.matias.kotlinrepositories.ui.composables.PaginatedRepoList
 import com.matias.kotlinrepositories.ui.composables.TopSearchBar
 
 @Composable
-fun SearchScreen(
-    onDetails: (Repo) -> Unit = {},
-    onNavigateUp: () -> Unit = {}
-) {
-    SearchScreen(
-        hiltViewModel(),
-        onDetails,
-        onNavigateUp
-    )
+fun SearchScreen(onDetails: (Repo) -> Unit = {}, onNavigateUp: () -> Unit = {}) {
+    SearchScreen(hiltViewModel(), onDetails, onNavigateUp)
 }
 
 @Composable
@@ -48,8 +41,7 @@ private fun SearchScreen(
         items = items,
         onQueryChanged = { viewModel.onSearchUpdated(it) },
         onRepoClick = onRepoClick,
-        onNavigateUp = onNavigateUp
-    )
+        onNavigateUp = onNavigateUp)
 }
 
 @Composable
@@ -61,19 +53,15 @@ private fun SearchScreen(
     onNavigateUp: () -> Unit = {},
 ) {
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopSearchBar(
                 searchText = state.query,
                 placeholderText = stringResource(id = R.string.search),
                 onSearchTextChanged = onQueryChanged,
                 onClearClick = { onQueryChanged("") },
-                onNavigateUp = onNavigateUp
-            )
-        }
-
-    ) { paddingValues ->
+                onNavigateUp = onNavigateUp)
+        }) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             Spacer(modifier = Modifier.size(8.dp))
 
@@ -86,8 +74,7 @@ private fun SearchScreen(
                     } else if (!state.isDebouncing) {
                         EmptyResultsSearchScreen(modifier = Modifier.fillParentMaxSize())
                     }
-                }
-            )
+                })
         }
     }
 }

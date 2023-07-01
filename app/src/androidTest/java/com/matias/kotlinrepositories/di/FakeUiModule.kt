@@ -6,11 +6,9 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import javax.inject.Named
 
+@Suppress("unused")
 @Module
-@TestInstallIn(
-    components = [SingletonComponent::class],
-    replaces = [UiModule::class]
-)
+@TestInstallIn(components = [SingletonComponent::class], replaces = [UiModule::class])
 object FakeUiModule {
 
     @Provides

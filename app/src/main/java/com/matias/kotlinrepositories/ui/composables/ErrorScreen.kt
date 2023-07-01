@@ -30,7 +30,11 @@ import com.matias.kotlinrepositories.R
 import com.matias.kotlinrepositories.ui.theme.KotlinRepositoriesTheme
 
 @Composable
-fun UndefinedErrorScreen(modifier: Modifier = Modifier, e: Throwable, onClickRetry: () -> Unit = {}) {
+fun UndefinedErrorScreen(
+    modifier: Modifier = Modifier,
+    e: Throwable,
+    onClickRetry: () -> Unit = {}
+) {
     when (e) {
         is NoInternetConnectionException -> NetworkErrorScreen(modifier, onClickRetry)
         else -> UnknownErrorScreen(modifier, onClickRetry)
@@ -43,8 +47,7 @@ fun NetworkErrorScreen(modifier: Modifier = Modifier, onClickRetry: () -> Unit =
         modifier = modifier,
         animation = R.raw.animation_cat_with_cable,
         res = R.string.no_internet,
-        onClickRetry = onClickRetry
-    )
+        onClickRetry = onClickRetry)
 }
 
 @Composable
@@ -53,8 +56,7 @@ fun UnknownErrorScreen(modifier: Modifier = Modifier, onClickRetry: (() -> Unit)
         modifier = modifier,
         animation = R.raw.animation_error,
         res = R.string.unknown_error_try_again,
-        onClickRetry = onClickRetry
-    )
+        onClickRetry = onClickRetry)
 }
 
 @Composable
@@ -87,25 +89,19 @@ private fun ErrorScreen(
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .padding(32.dp)
-    ) {
+        modifier = modifier.padding(32.dp)) {
         LottieAnimation(
             composition = composition,
             modifier = Modifier.size(200.dp),
-            iterations = LottieConstants.IterateForever
-        )
+            iterations = LottieConstants.IterateForever)
         Spacer(modifier = Modifier.size(16.dp))
         Text(
             stringResource(id = res),
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
+            modifier = Modifier.fillMaxWidth())
         onClickRetry?.let {
-            OutlinedButton(onClick = it) {
-                Text(text = stringResource(id = R.string.try_again))
-            }
+            OutlinedButton(onClick = it) { Text(text = stringResource(id = R.string.try_again)) }
         }
     }
 }
@@ -120,9 +116,5 @@ private fun ErrorScreen(
 )
 @Composable
 private fun Preview() {
-    KotlinRepositoriesTheme {
-        Surface {
-            EmptyResultsSearchScreen()
-        }
-    }
+    KotlinRepositoriesTheme { Surface { EmptyResultsSearchScreen() } }
 }

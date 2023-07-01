@@ -15,11 +15,7 @@ import com.matias.kotlinrepositories.ui.theme.KotlinRepositoriesTheme
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .size(32.dp)
-                .align(Alignment.Center)
-        )
+        CircularProgressIndicator(modifier = Modifier.size(32.dp).align(Alignment.Center))
     }
 }
 
@@ -33,7 +29,5 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 )
 @Composable
 private fun Preview() {
-    KotlinRepositoriesTheme {
-        LoadingScreen(Modifier.fillMaxSize())
-    }
+    KotlinRepositoriesTheme { LoadingScreen(Modifier.fillMaxSize()) }
 }

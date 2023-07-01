@@ -18,19 +18,12 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(
-        @ApplicationContext context: Context
-    ): RepoDatabase {
-        return Room.databaseBuilder(
-            context,
-            RepoDatabase::class.java,
-            RepoDatabase.DATABASE_NAME
-        ).build()
+    fun provideDatabase(@ApplicationContext context: Context): RepoDatabase {
+        return Room.databaseBuilder(context, RepoDatabase::class.java, RepoDatabase.DATABASE_NAME)
+            .build()
     }
 
-    @Provides
-    @Singleton
-    fun provideRepoDao(db: RepoDatabase): RepoDao = db.repoDao()
+    @Provides @Singleton fun provideRepoDao(db: RepoDatabase): RepoDao = db.repoDao()
 
     @Provides
     @Singleton

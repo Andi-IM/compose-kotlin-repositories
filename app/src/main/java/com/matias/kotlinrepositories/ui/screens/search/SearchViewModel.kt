@@ -24,7 +24,9 @@ import kotlinx.coroutines.flow.update
 @ExperimentalCoroutinesApi
 @OptIn(FlowPreview::class)
 @HiltViewModel
-class SearchViewModel @Inject constructor(
+class SearchViewModel
+@Inject
+constructor(
     private val searchReposUseCase: SearchReposUseCase,
     @Named("debounceMs") private val debounceMs: Long,
 ) : ViewModel() {
@@ -32,15 +34,17 @@ class SearchViewModel @Inject constructor(
     private val _state = MutableStateFlow(SearchState())
     val state = _state.asStateFlow()
 
-    var searchResult: Flow<PagingData<Repo>> = _state
-        .map { it.query }
-        .distinctUntilChanged()
-        .onEach { _state.update { it.copy(isDebouncing = true) } }
-        .debounce { if (it == "") 0L else debounceMs }
-        .flatMapLatest { query ->
-            _state.update { it.copy(isDebouncing = false) }
-            searchReposUseCase(query = query)
-        }.cachedIn(viewModelScope)
+    var searchResult: Flow<PagingData<Repo>> =
+        _state
+            .map { it.query }
+            .distinctUntilChanged()
+            .onEach { _state.update { it.copy(isDebouncing = true) } }
+            .debounce { if (it == "") 0L else debounceMs }
+            .flatMapLatest { query ->
+                _state.update { it.copy(isDebouncing = false) }
+                searchReposUseCase(query = query)
+            }
+            .cachedIn(viewModelScope)
 
     fun onSearchUpdated(value: String) {
         _state.update { it.copy(query = value) }

@@ -21,11 +21,7 @@ class RepoListItemKtTest : BaseComposeTest() {
     @Before
     override fun setUp() {
         super.setUp()
-        composeTestRule.setContent {
-            KotlinRepositoriesTheme {
-                RepoListItem(repo = repo)
-            }
-        }
+        composeTestRule.setContent { KotlinRepositoriesTheme { RepoListItem(repo = repo) } }
     }
 
     @Test

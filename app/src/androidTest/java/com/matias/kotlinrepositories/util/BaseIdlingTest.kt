@@ -6,7 +6,8 @@ import org.junit.Before
 
 abstract class BaseIdlingTest : BaseComposeTest() {
 
-    private val composeIdlingResource = ComposeIdlingResource(EspressoIdlingResource.countingIdlingResource)
+    private val composeIdlingResource =
+        ComposeIdlingResource(EspressoIdlingResource.countingIdlingResource)
 
     @Before
     override fun setUp() {

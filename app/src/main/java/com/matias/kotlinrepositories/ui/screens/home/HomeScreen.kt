@@ -54,29 +54,25 @@ private fun HomeScreenContent(
     onSearch: () -> Unit = {},
 ) {
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(id = R.string.app_name)) },
                 actions = {
                     IconButton(onClick = onSearch) {
-                        Icon(Icons.Default.Search, contentDescription = stringResource(id = R.string.search))
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = stringResource(id = R.string.search))
                     }
-                }
-
-            )
-        }
-
-    ) { paddingValues ->
+                })
+        }) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             Spacer(modifier = Modifier.size(8.dp))
 
             PaginatedRepoList(
                 items = items,
                 onRepoClick = onRepoClick,
-                emptyState = { EmptyQuerySearchScreen(modifier = Modifier.fillParentMaxSize()) }
-            )
+                emptyState = { EmptyQuerySearchScreen(modifier = Modifier.fillParentMaxSize()) })
         }
     }
 }

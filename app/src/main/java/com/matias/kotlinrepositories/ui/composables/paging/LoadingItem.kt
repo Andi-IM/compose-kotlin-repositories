@@ -12,9 +12,6 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun LoadingItem() {
     CircularProgressIndicator(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .wrapContentWidth(Alignment.CenterHorizontally)
-    )
+        modifier =
+            Modifier.fillMaxWidth().padding(16.dp).wrapContentWidth(Alignment.CenterHorizontally))
 }

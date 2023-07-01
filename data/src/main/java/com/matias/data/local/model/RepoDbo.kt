@@ -7,12 +7,10 @@ import com.matias.data.local.db.RepoDatabase
 
 @Entity(tableName = RepoDatabase.REPO_TABLE_NAME)
 data class RepoDbo(
-    @PrimaryKey(autoGenerate = false)
-    val id: Int = 0,
+    @PrimaryKey(autoGenerate = false) val id: Int = 0,
     val name: String = "",
     val fullName: String = "",
-    @Embedded
-    val owner: UserDbo = UserDbo(),
+    @Embedded val owner: UserDbo = UserDbo(),
     val htmlUrl: String? = "",
     val description: String? = "",
     val homepage: String? = "",

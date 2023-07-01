@@ -13,9 +13,7 @@ interface RepoDao {
     @Query("SELECT * FROM ${RepoDatabase.REPO_TABLE_NAME} order by stargazersCount DESC")
     fun getAll(): PagingSource<Int, RepoDbo>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun add(items: List<RepoDbo>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun add(items: List<RepoDbo>)
 
-    @Query("DELETE FROM ${RepoDatabase.REPO_TABLE_NAME}")
-    suspend fun deleteAll()
+    @Query("DELETE FROM ${RepoDatabase.REPO_TABLE_NAME}") suspend fun deleteAll()
 }

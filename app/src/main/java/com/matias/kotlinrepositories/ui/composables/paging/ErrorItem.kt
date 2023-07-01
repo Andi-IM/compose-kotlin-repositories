@@ -18,22 +18,17 @@ import com.matias.kotlinrepositories.R
 import com.matias.kotlinrepositories.ui.theme.KotlinRepositoriesTheme
 
 @Composable
-fun ErrorItem(
-    message: String = "Error",
-    onClickRetry: () -> Unit = {}
-) {
+fun ErrorItem(message: String = "Error", onClickRetry: () -> Unit = {}) {
     Row(
         modifier = Modifier.padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+        verticalAlignment = Alignment.CenterVertically) {
         Text(
             text = message,
             maxLines = 1,
             modifier = Modifier.weight(1f),
             style = MaterialTheme.typography.h6,
-            color = MaterialTheme.colors.error
-        )
+            color = MaterialTheme.colors.error)
         OutlinedButton(onClick = onClickRetry) {
             Text(text = stringResource(id = R.string.try_again))
         }
@@ -50,9 +45,5 @@ fun ErrorItem(
 )
 @Composable
 private fun Preview() {
-    KotlinRepositoriesTheme {
-        Surface {
-            ErrorItem()
-        }
-    }
+    KotlinRepositoriesTheme { Surface { ErrorItem() } }
 }

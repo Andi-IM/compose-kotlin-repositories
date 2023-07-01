@@ -27,8 +27,7 @@ private fun NavGraphBuilder.addHome(
     composable(route = Screen.Home.route) {
         HomeScreen(
             onDetails = { repo -> navController.navigate(Screen.Details.createRoute(repo)) },
-            onSearch = { navController.navigate(Screen.Search.route) }
-        )
+            onSearch = { navController.navigate(Screen.Search.route) })
     }
 }
 
@@ -38,8 +37,7 @@ private fun NavGraphBuilder.addSearch(
     composable(route = Screen.Search.route) {
         SearchScreen(
             onDetails = { repo -> navController.navigate(Screen.Details.createRoute(repo)) },
-            onNavigateUp = { navController.navigateUp() }
-        )
+            onNavigateUp = { navController.navigateUp() })
     }
 }
 
@@ -48,17 +46,9 @@ private fun NavGraphBuilder.addDetails(
 ) {
     composable(
         route = Screen.Details.route,
-        arguments = listOf(
-            navArgument("owner") {
-                type = NavType.StringType
-            },
-            navArgument("name") {
-                type = NavType.StringType
-            },
-        )
-    ) {
-        DetailsScreen(navigateUp = {
-            navController.navigateUp()
-        })
-    }
+        arguments =
+            listOf(
+                navArgument("owner") { type = NavType.StringType },
+                navArgument("name") { type = NavType.StringType },
+            )) { DetailsScreen(navigateUp = { navController.navigateUp() }) }
 }
